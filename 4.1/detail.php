@@ -13,9 +13,8 @@ if($data == false) {
     die();
 }
 
-$term = $data->term;
 $view_bag = [
-    'title' => "Detail for $term",
+    'title' => 'Detail for'. $data->term,
 ];
 
 
