@@ -32,6 +32,35 @@ function search_terms($search) {
 
 }
 
+function add_term($term, $definition) {
+   $items = get_terms();
+
+
+   $obj = (object) [
+      'term' => $term,
+      'definition' => $definition
+   ];
+
+   $items[] = $obj;
+
+   set_data($items);
+
+}
+
+function update_term($original_term, $new_term, $definition) {
+   $terms = get_terms();
+
+   foreach ($terms as $item) {
+      if ($item->term == $original_term) {
+         $item->term = $new_term;
+         $item->definition = $definition;
+         break;
+      }
+   }
+
+   set_data($terms);
+}
+
 
 function get_data() {
 $fname = CONFIG['data_file'];
@@ -44,4 +73,14 @@ file_put_contents($fname, '');
 $json = file_get_contents($fname);
 }
 return $json;
+}
+
+
+function set_data($arr)
+{
+   $fname = CONFIG['data_file'];
+
+   $json = json_encode($arr);
+
+   file_put_contents($fname, $json);
 }

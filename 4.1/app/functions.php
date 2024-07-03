@@ -9,7 +9,25 @@ function redirect($url) {
 
 function view($name, $model = '') {
     global $view_bag;
-    require("views/layout.view.php");
+    require(APP_PATH . "views/layout.view.php");
+}
+
+function is_get() {
+    return $_SERVER['REQUEST_METHOD'] === 'GET';
+}
+
+function is_post()
+{
+    return $_SERVER['REQUEST_METHOD'] === 'POST';
+}
+
+function sanitize($value) {
+    $temp = filter_var(trim($value), FILTER_UNSAFE_RAW);
+
+    if($temp=== false) {
+        return '';
+    }
+    return $temp;
 }
 
 ?>
