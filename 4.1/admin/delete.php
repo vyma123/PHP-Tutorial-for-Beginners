@@ -21,18 +21,17 @@ if(is_get()) {
 
  }
 
- view('admin/edit', $term);
+ view('admin/delete', $term);
   
 }
 
 if(is_post()){
     $term = sanitize($_POST['term']);
-    $definition = sanitize($_POST['definition']);
-    $original_term = sanitize($_POST['original-term']);
 
-    if(empty($term) || empty($definition) || empty($original_term)) {
+
+    if(empty($term)) {
     }else {
-        update_term($original_term, $term, $definition);
+        delete_term($term);
         redirect('index.php');
     }
 }

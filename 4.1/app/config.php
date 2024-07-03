@@ -6,4 +6,4 @@ const CONFIG = [
         'admin@admin.com' => '1234',
         
     ]
-    ];
+];

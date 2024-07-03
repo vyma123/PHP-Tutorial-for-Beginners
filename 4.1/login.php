@@ -1,31 +1,26 @@
 <?php
-session_start();
-$title = 'includes';
 
-include('./../inc/header.php');
-require_once('./../inc/config.php');
-require_once('./../inc/functions.php');
+session_start();
+require('app/app.php');
+
 
 if(is_user_authenticated()) {
-    redirect('admin.php');
-    die();
+    redirect('admin/');
 }
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+if(is_post()) {
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-    $password = $_POST['password'];
+    $password = sanitize($_POST['password']);
  
     if(authenticate_user($email, $password)){
         $_SESSION['email'] = $email;
-        redirect('admin.php');
-        die();
+        redirect('admin/');
     }else {
-        $status = "the provided didn't not working";
+        $view_bag['status'] = "the provided didn't not working";
     }
 
-
     if($email == false) {
-        $status = 'Please enter a valid email address';
+        $view_bag['status'] = 'Please enter a valid email address';
     }
 }
 
@@ -64,3 +59,5 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 include('./../inc/footer.php');
 
 ?>
+
+
